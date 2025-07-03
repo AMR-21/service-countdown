@@ -11,6 +11,7 @@ import { ProgressBar } from "./components/progress-bar";
 import { useClockMode } from "./hooks/use-clock-mode";
 import { differenceInDays } from "date-fns";
 import type { Clock } from "./lib/types";
+import { ArrowUp } from "lucide-react";
 
 export default function App() {
   const { month } = useMonth();
@@ -55,7 +56,10 @@ export default function App() {
 
       {/* Scroll */}
       {!month || !year ? (
-        <div className="grow">اختار الدفعة اعلاه لبدا العد</div>
+        <div className="grow flex items-center justify-center text-3xl flex-col gap-3">
+          <ArrowUp />
+          <span>اختار الدفعة اعلاه لبدا العد</span>
+        </div>
       ) : (
         <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden flex flex-col">
           <div className="border-b border-border">
