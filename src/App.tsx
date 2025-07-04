@@ -50,7 +50,7 @@ export default function App() {
         <BatchSelector />
       </div>
 
-      <h1 className="px-8 pt-24 pb-28 text-center font-ruqaa text-9xl border-b border-border">
+      <h1 className="px-8 pt-4 pb-8 text-center font-ruqaa text-6xl border-b border-border">
         عَدَّادُ المِيرِي
       </h1>
 
