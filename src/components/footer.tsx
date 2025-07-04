@@ -15,7 +15,11 @@ export function Footer() {
     >
       <ThemeToggle />
 
-      <FooterBtn title="Confetti Igniter" onClick={() => fireConfetti()}>
+      <FooterBtn
+        title="Confetti Igniter"
+        aria-label="Confetti Igniter"
+        onClick={() => fireConfetti()}
+      >
         <PartyPopper />
       </FooterBtn>
       <div className="grow">
@@ -26,6 +30,7 @@ export function Footer() {
       </FooterBtn> */}
       <FooterBtn
         title="Share"
+        aria-label="Share"
         onClick={() => {
           try {
             navigator.clipboard.writeText(window.location.href);
@@ -40,8 +45,12 @@ export function Footer() {
       >
         <Share />
       </FooterBtn>
-      <a target="_blank" href="https://github.com/AMR-21/service-countdown">
-        <FooterBtn title="Github Repo">
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://github.com/AMR-21/service-countdown"
+      >
+        <FooterBtn title="Github Repo" aria-label="Github Repo">
           <img
             src={githubIcon}
             className="size-4 dark:invert "
