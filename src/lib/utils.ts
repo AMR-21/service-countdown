@@ -1,13 +1,21 @@
-import { clsx, type ClassValue } from "clsx"
-import { daysToWeeks, differenceInDays, intervalToDuration, subYears } from "date-fns";
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import {
+  daysToWeeks,
+  differenceInDays,
+  intervalToDuration,
+  subYears,
+} from "date-fns";
+import { twMerge } from "tailwind-merge";
 import type { Clock } from "./types";
 import confetti from "canvas-confetti";
+import { clockAtom, store } from "./atoms";
+import type { BATCHES } from "./constants";
+
+let timerId: NodeJS.Timeout | undefined;
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
-
 
 /**
  *
@@ -22,12 +30,23 @@ export function getPlurality(num: number) {
   return (num <= 10 && num > 2) || num === 0 ? 2 : num === 2 ? 1 : 0;
 }
 
-
 export function formatNum(num: number) {
   return new Intl.NumberFormat("ar-EG", {
     style: "decimal",
     useGrouping: false,
   }).format(num);
+}
+
+export function startTimer(target: string) {
+  if (timerId) clearInterval(timerId);
+
+  // for instant effect
+  store.set(clockAtom, getClock(target));
+
+  // the actual clock
+  timerId = setInterval(() => {
+    store.set(clockAtom, getClock(target));
+  }, 1000);
 }
 
 export function getClock(target: string) {
@@ -51,7 +70,6 @@ export function getClock(target: string) {
     totalDays,
   } satisfies Clock;
 }
-
 
 export function fireConfetti(time = 10) {
   const duration = time * 1000;
@@ -85,33 +103,46 @@ export function fireConfetti(time = 10) {
     });
   }, 250);
 
-  return interval
+  return interval;
 }
-
 
 export function isExtraYear(month: number) {
-  return month === 1 || month === 4 || month === 7 || month === 10
+  return month === 0 || month === 3 || month === 6 || month === 9;
 }
 
-export function getRecruitmentDuration(batchDate: string, duration: number, addTraining: boolean) {
+export function getRecruitmentDuration(
+  batchDate: string,
+  duration: number,
+  addTraining: boolean
+) {
+  const endDate = new Date(batchDate);
 
-  const endDate = new Date(batchDate)
+  const hasExtraYear = isExtraYear(endDate.getMonth());
 
-  const hasExtraYear = isExtraYear(endDate.getMonth())
+  const startDate = subYears(endDate, duration);
+  startDate.setDate(1);
 
+  if (hasExtraYear) {
+    startDate.setMonth((startDate.getMonth() - 2) % 12);
+  }
 
   // Add training duration
-  if (addTraining)
-    endDate.setMonth(endDate.getMonth() - 2)
-
-  // Extra year fixation
-  if (hasExtraYear) endDate.setMonth(endDate.getMonth() - 2)
-
-  const startDate = subYears(endDate, duration)
+  if (addTraining) {
+    startDate.setMonth(startDate.getMonth() - 1);
+  } else {
+    startDate.setMonth(startDate.getMonth() + 1);
+  }
 
   return {
     passed: differenceInDays(Date.now(), startDate),
-    total: differenceInDays(batchDate, startDate)
-  }
+    total: differenceInDays(batchDate, startDate),
+    startDate,
+  };
+}
 
+export function getTargetDate(
+  month: (typeof BATCHES)[number] | null,
+  year: number | null
+) {
+  return `${Number(month) - 1}-25-${year}`;
 }

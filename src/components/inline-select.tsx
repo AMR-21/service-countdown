@@ -24,7 +24,10 @@ export function InlineSelect({
   return (
     <Select value={value || ""} onValueChange={onValueChange}>
       <SelectTrigger>
-        <SelectValue placeholder={placeholder} />
+        <SelectValue
+          className="text-ellipsis overflow-hidden whitespace-nowrap"
+          placeholder={placeholder}
+        />
       </SelectTrigger>
       <SelectContent>
         {items.map((item, i) => (

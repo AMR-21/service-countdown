@@ -3,8 +3,8 @@ import { BATCHES } from "@/lib/constants";
 import { useYear } from "@/hooks/use-year";
 import { InlineSelect } from "./inline-select";
 import { isPast } from "date-fns";
-import { formatNum } from "@/lib/utils";
-import { useMemo } from "react";
+import { formatNum, getTargetDate, startTimer } from "@/lib/utils";
+import { useCallback, useMemo } from "react";
 
 export function BatchSelector() {
   const { month, setMonth } = useMonth();
@@ -17,16 +17,37 @@ export function BatchSelector() {
       }),
     []
   );
+
+  // useEffect(() => {
+  //   if (!month || !year) return;
+
+  //   const target = `${month}-1-${year}`;
+
+  //   startTimer(target);
+  // }, [month, year]);
+
+  const start = useCallback(
+    (month: (typeof BATCHES)[number] | null, year: number | null) => {
+      const target = getTargetDate(month, year);
+
+      startTimer(target);
+    },
+    []
+  );
+
   return (
     <>
       <p className="py-2 px-3 border-l border-border text-lg text-foreground/80">
         دفعة
       </p>
-      <p className="py-2 px-3 border-l border-border">1</p>
+      <p className="py-2 px-3 border-l border-border">{formatNum(1)}</p>
       <div className="border-l border-border h-full">
         <InlineSelect
           value={month}
-          onValueChange={(v) => setMonth(v as (typeof BATCHES)[number])}
+          onValueChange={(v) => {
+            setMonth(v as (typeof BATCHES)[number]);
+            start(v as (typeof BATCHES)[number], year);
+          }}
           placeholder="الدفعة"
           items={BATCHES}
           labels={BATCHES.map((b) => formatNum(+b))}
@@ -36,7 +57,10 @@ export function BatchSelector() {
       <div className="h-full">
         <InlineSelect
           value={`${year}`}
-          onValueChange={(v: string) => setYear(+v)}
+          onValueChange={(v: string) => {
+            setYear(+v);
+            start(month as (typeof BATCHES)[number], +v);
+          }}
           placeholder="السنة"
           items={years}
           labels={years.map((y) => formatNum(+y))}
