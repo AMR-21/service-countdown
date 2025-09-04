@@ -34,10 +34,7 @@ export function Counter() {
 
     const diff = differenceInDays(target, Date.now());
 
-    let interval: NodeJS.Timeout;
-    if (diff <= 31) interval = fireConfetti();
-
-    return () => clearInterval(interval);
+    if (diff > 3 && diff <= 31) fireConfetti();
   }, [month, year, target]);
 
   return (

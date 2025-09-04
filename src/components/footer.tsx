@@ -1,4 +1,4 @@
-import { fireConfetti } from "@/lib/utils";
+import { fireConfetti, getTargetDate } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
 import { Button, buttonVariants } from "./ui/button";
 import { PartyPopper, Share } from "lucide-react";
@@ -6,8 +6,16 @@ import githubIcon from "@/assets/github.svg";
 import type { VariantProps } from "class-variance-authority";
 import DiagonalPattern from "./diagonal-pattern";
 import { toast } from "sonner";
+import { useMonth } from "@/hooks/use-month";
+import { useYear } from "@/hooks/use-year";
+import { differenceInDays } from "date-fns";
 
 export function Footer() {
+  const { month } = useMonth();
+  const { year } = useYear();
+  const target = getTargetDate(month, year);
+  const diff = differenceInDays(target, Date.now());
+
   return (
     <div
       dir="rtl"
@@ -18,12 +26,17 @@ export function Footer() {
       <FooterBtn
         title="Confetti Igniter"
         aria-label="Confetti Igniter"
+        disabled={diff > 90}
         onClick={() => fireConfetti()}
       >
         <PartyPopper />
       </FooterBtn>
       <div className="grow">
-        <DiagonalPattern anchors={false} className="h-full" />
+        <DiagonalPattern className="h-full">
+          <div className="w-fit mx-auto px-6 border-x bg-background h-full flex items-center justify-center font-ruqaa">
+            <p>رديف</p>
+          </div>
+        </DiagonalPattern>
       </div>
       {/* <FooterBtn title="Screenshot">
         <Aperture />

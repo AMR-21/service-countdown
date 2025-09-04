@@ -12,6 +12,7 @@ import { clockAtom, store } from "./atoms";
 import type { BATCHES } from "./constants";
 
 let timerId: NodeJS.Timeout | undefined;
+let confettiTimerId: NodeJS.Timeout | undefined;
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -46,6 +47,9 @@ export function startTimer(target: string) {
   // the actual clock
   timerId = setInterval(() => {
     store.set(clockAtom, getClock(target));
+    const diff = differenceInDays(target, Date.now());
+
+    if (diff <= 3 && !confettiTimerId) fireConfetti(30);
   }, 1000);
 }
 
@@ -80,11 +84,12 @@ export function fireConfetti(time = 10) {
     return Math.random() * (max - min) + min;
   }
 
-  const interval = setInterval(() => {
+  confettiTimerId = setInterval(() => {
     const timeLeft = animationEnd - Date.now();
 
     if (timeLeft <= 0) {
-      clearInterval(interval);
+      clearInterval(confettiTimerId);
+      confettiTimerId = undefined;
       return;
     }
 
@@ -102,8 +107,6 @@ export function fireConfetti(time = 10) {
       origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
     });
   }, 250);
-
-  return interval;
 }
 
 export function isExtraYear(month: number) {
