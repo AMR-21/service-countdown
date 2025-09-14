@@ -33,15 +33,22 @@ export function ProgressBar() {
           <span className="text-xs text-muted-foreground">يوم</span>
         </div>
       </div>
-      <div className="flex gap-1">
-        {Array.from({ length: 20 }, (_, index) => (
-          <div
-            key={index}
-            className={`h-16 flex-1 rounded-none ${
-              index < (percentage / 100) * 21 ? "bg-foreground" : "bg-secondary"
-            }`}
-          />
+      <div className="flex gap-1 w-full relative">
+        {/* background */}
+        {Array.from({ length: 20 }, (_, i) => (
+          <div key={i} className="h-16 flex-1 rounded-none bg-secondary" />
         ))}
+        {/* foreground */}
+        <div
+          className="absolute top-0 right-0 h-full w-full flex gap-1"
+          style={{
+            clipPath: `inset(0 0 0 ${100 - percentage}%)`,
+          }}
+        >
+          {Array.from({ length: 20 }, (_, i) => (
+            <div key={i} className="h-16 flex-1 rounded-none bg-foreground" />
+          ))}
+        </div>
       </div>
       <div className="grid grid-cols-[1fr_2fr_1fr] items-center text-sm text-muted-foreground">
         <p>{startDate.toLocaleDateString("ar-EG")}</p>

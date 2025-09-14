@@ -12,13 +12,17 @@ export function Clock() {
       )}
     >
       <div className="bg-background h-full flex items-center justify-center">
-        <p className="text-2xl">{clock ? formatNum(clock?.minutes) : "-"}</p>
+        <p className="text-lg md:text-2xl">
+          {clock ? formatNum(clock?.minutes) : "-"}
+        </p>
       </div>
-      <p className="text-xl border-x h-full flex items-center justify-center">
+      <p className="text-lg md:text-xl border-x h-full flex items-center justify-center">
         :
       </p>
       <div className="bg-background h-full flex items-center justify-center">
-        <p className="text-2xl">{clock ? formatNum(clock?.seconds) : "-"}</p>
+        <p className="text-lg md:text-2xl">
+          {clock ? formatNum(clock?.seconds) : "-"}
+        </p>
       </div>
     </div>
   );
