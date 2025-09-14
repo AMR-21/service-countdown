@@ -51,12 +51,12 @@ export function ProgressBar() {
         </div>
       </div>
       <div className="grid grid-cols-[1fr_2fr_1fr] items-center text-sm text-muted-foreground">
-        <p>{startDate.toLocaleDateString("ar-EG")}</p>
+        <p className="self-start">{startDate.toLocaleDateString("ar-EG")}</p>
         <div className="justify-self-center">
           <TrainingCheckbox />
         </div>
 
-        <p className="justify-self-end">
+        <p className="justify-self-end self-start">
           {new Date(endDate).toLocaleDateString("ar-EG")}
         </p>
       </div>

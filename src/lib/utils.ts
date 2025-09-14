@@ -146,5 +146,6 @@ export function getTargetDate(
   month: (typeof BATCHES)[number] | null,
   year: number | null
 ) {
-  return `${Number(month) - 1}-25-${year}`;
+  if (!month || !year) return "";
+  return `${year}-${String(Number(+month - 1)).padStart(2, "0")}-25`;
 }
