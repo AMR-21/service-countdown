@@ -48,8 +48,7 @@ export function startTimer(target: string) {
   timerId = setInterval(() => {
     store.set(clockAtom, getClock(target));
     const diff = differenceInDays(target, Date.now());
-
-    if (diff <= 3 && !confettiTimerId) fireConfetti(30);
+    if (diff > 0 && diff <= 3 && !confettiTimerId) fireConfetti(30);
   }, 1000);
 }
 

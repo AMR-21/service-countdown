@@ -18,16 +18,9 @@ export function BatchSelector() {
     []
   );
 
-  // useEffect(() => {
-  //   if (!month || !year) return;
-
-  //   const target = `${month}-1-${year}`;
-
-  //   startTimer(target);
-  // }, [month, year]);
-
   const start = useCallback(
     (month: (typeof BATCHES)[number] | null, year: number | null) => {
+      if (!month || !year) return;
       const target = getTargetDate(month, year);
 
       startTimer(target);

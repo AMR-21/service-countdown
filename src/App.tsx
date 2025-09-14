@@ -4,7 +4,7 @@ import { Footer } from "./components/footer";
 
 export default function App() {
   return (
-    <div className="mx-auto h-screen bg-background container flex flex-col max-w-2xl sm:border-x">
+    <div className="mx-auto h-dvh bg-background container flex flex-col max-w-2xl sm:border-x">
       {/* Header */}
       <div className="border-b border-border grid text-xl grid-cols-[1fr_0.75fr_0.75fr_1fr] text-center items-center">
         <BatchSelector />

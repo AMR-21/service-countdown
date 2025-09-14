@@ -33,9 +33,11 @@ export function Footer() {
       </FooterBtn>
       <div className="grow">
         <DiagonalPattern className="h-full">
-          <div className="w-fit mx-auto px-6 border-x bg-background h-full flex items-center justify-center font-ruqaa">
-            <p>رديف</p>
-          </div>
+          {diff <= 90 && (
+            <div className="w-fit mx-auto px-6 border-x bg-background h-full flex items-center justify-center font-ruqaa">
+              <p>رديف</p>
+            </div>
+          )}
         </DiagonalPattern>
       </div>
       {/* <FooterBtn title="Screenshot">
