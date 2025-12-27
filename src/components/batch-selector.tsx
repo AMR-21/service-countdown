@@ -46,7 +46,6 @@ export function BatchSelector() {
 
 	const remainingBatches = useMemo(() => getRemainingBatches(year), [year]);
 
-	console.log(remainingBatches, new Date());
 
 	return (
 		<div className="border-b border-border grid text-xl grid-cols-[0.5fr_1fr_1fr_1fr] text-center items-center">
