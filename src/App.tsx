@@ -1,5 +1,6 @@
 import { DirectionProvider } from "@base-ui/react/direction-provider";
 import { BatchSelector } from "./components/batch-selector";
+import { BgPattern } from "./components/bg-pattern";
 import { ContentSection } from "./components/content-section";
 import { Footer } from "./components/footer";
 
@@ -10,8 +11,9 @@ export default function App() {
 				{/* Header */}
 				<BatchSelector />
 
-				<h1 className="px-8 pt-8 pb-16 text-center font-ruqaa text-7xl border-b border-border text-primary">
+				<h1 className="px-8 pt-8 pb-16 text-center font-ruqaa text-7xl border-b border-border text-primary relative overflow-hidden">
 					عَدَّادُ المِيرِي
+					<BgPattern />
 				</h1>
 
 				<div className=" grow overflow-hidden ">

@@ -13,7 +13,7 @@ export function Duration() {
 	const { duration, setDuration } = useDuration();
 	return (
 		<div className="flex items-center h-full">
-			<p className="shrink-0 text-center border-l p-2 w-16 h-full">المدة</p>
+			{/* <p className="shrink-0 text-center border-l p-2 w-16 h-full">المدة</p> */}
 			<Select
 				value={duration}
 				onValueChange={(v) => {

@@ -9,6 +9,8 @@ import {
 	startTimer,
 	verifyYear,
 } from "@/lib/utils";
+import DiagonalPattern from "./diagonal-pattern";
+import { Duration } from "./duration";
 import {
 	Select,
 	SelectContent,
@@ -46,7 +48,7 @@ export function BatchSelector() {
 	const remainingBatches = useMemo(() => getRemainingBatches(year), [year]);
 
 	return (
-		<div className="border-b border-border grid text-xl grid-cols-[1fr_0.75fr_1fr] text-center items-center">
+		<div className="border-b border-border grid text-xl grid-cols-[0.5fr_1fr_1fr_1fr] text-center items-center">
 			<p className="py-2 px-3 border-l border-border text-foreground">دفعة</p>
 			<div className="border-l h-full">
 				<Select
@@ -72,7 +74,7 @@ export function BatchSelector() {
 					</SelectContent>
 				</Select>
 			</div>
-			<div className="h-full">
+			<div className="h-full border-l">
 				<Select
 					value={year ? `${year}` : null}
 					onValueChange={(v) => {
@@ -84,7 +86,7 @@ export function BatchSelector() {
 					<SelectTrigger size="full">
 						<SelectValue className="text-center text-lg">
 							{(value: string | null) => (
-								<>{value ? formatNum(+value) : "السنة"}</>
+								<>{value ? formatNum(+value).slice(-2) : "السنة"}</>
 							)}
 						</SelectValue>
 					</SelectTrigger>
@@ -97,6 +99,8 @@ export function BatchSelector() {
 					</SelectContent>
 				</Select>
 			</div>
+			{/* <DiagonalPattern className="h-full border-x" /> */}
+			<Duration />
 		</div>
 	);
 }

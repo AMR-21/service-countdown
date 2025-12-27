@@ -1,10 +1,12 @@
 import { IconArrowUp } from "@tabler/icons-react";
 import { useMonth } from "@/hooks/use-month";
 import { useYear } from "@/hooks/use-year";
+import { BgPattern } from "./bg-pattern";
 import { Clock } from "./clock";
 import { Counter } from "./counter";
 import DiagonalPattern from "./diagonal-pattern";
 import { Duration } from "./duration";
+import { Footer } from "./footer";
 import { ProgressBar } from "./progress-bar";
 import { TrainingCheckbox } from "./training-checkbox";
 
@@ -29,14 +31,16 @@ export function ContentSection() {
 						</div>
 					</div>
 					<DiagonalPattern />
-					<div className="flex border-y p-0 h-11">
-						<div className="flex-1 border-l">
-							<Duration />
+					<div className="border-y p-0 flex flex-col py-4">
+						<div className=" border-border grow flex flex-col gap-8 ">
+							<ProgressBar />
 						</div>
-						<TrainingCheckbox />
+						<div className="mx-auto">
+							<TrainingCheckbox />
+						</div>
 					</div>
-					<div className=" border-border grow flex flex-col gap-8 pb-8">
-						<ProgressBar />
+					<div className="relative overflow-hidden flex-1 h-full">
+						<BgPattern />
 					</div>
 				</>
 			)}
