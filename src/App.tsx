@@ -6,15 +6,15 @@ import { Footer } from "./components/footer";
 export default function App() {
 	return (
 		<DirectionProvider direction="rtl">
-			<div className="mx-auto h-dvh bg-background container flex flex-col max-w-2xl sm:border-x overflow-hidden">
+			<div className="mx-auto h-svh bg-background container flex flex-col max-w-2xl sm:border-x overflow-hidden">
 				{/* Header */}
 				<BatchSelector />
 
-				<h1 className="px-8 pt-4 pb-8 text-center font-ruqaa text-6xl border-b border-border">
+				<h1 className="px-8 pt-8 pb-16 text-center font-ruqaa text-7xl border-b border-border text-primary">
 					عَدَّادُ المِيرِي
 				</h1>
 
-				<div className=" grow overflow-y-auto ">
+				<div className=" grow overflow-hidden ">
 					<ContentSection />
 				</div>
 				<div className="border-t border-border">

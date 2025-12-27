@@ -1,8 +1,7 @@
+import { IconBrandGithub, IconConfetti, IconShare2 } from "@tabler/icons-react";
 import type { VariantProps } from "class-variance-authority";
 import { differenceInDays } from "date-fns";
-import { PartyPopper, Share } from "lucide-react";
 import { toast } from "sonner";
-import githubIcon from "@/assets/github.svg";
 import { useMonth } from "@/hooks/use-month";
 import { useYear } from "@/hooks/use-year";
 import { fireConfetti, getTargetDate } from "@/lib/utils";
@@ -29,7 +28,7 @@ export function Footer() {
 				disabled={diff > 90}
 				onClick={() => fireConfetti()}
 			>
-				<PartyPopper />
+				<IconConfetti />
 			</FooterBtn>
 			<div className="grow">
 				<DiagonalPattern className="h-full">
@@ -58,7 +57,7 @@ export function Footer() {
 					}
 				}}
 			>
-				<Share />
+				<IconShare2 />
 			</FooterBtn>
 			<a
 				target="_blank"
@@ -66,11 +65,7 @@ export function Footer() {
 				href="https://github.com/AMR-21/service-countdown"
 			>
 				<FooterBtn title="Github Repo" aria-label="Github Repo">
-					<img
-						src={githubIcon}
-						className="size-4 dark:invert "
-						alt="Github Icon"
-					/>
+					<IconBrandGithub />
 				</FooterBtn>
 			</a>
 		</div>
@@ -84,6 +79,11 @@ function FooterBtn({
 		asChild?: boolean;
 	}) {
 	return (
-		<Button size="icon" variant="ghost" className="aspect-square" {...props} />
+		<Button
+			size="icon-sm"
+			variant="ghost"
+			className="aspect-square size-full"
+			{...props}
+		/>
 	);
 }

@@ -9,7 +9,13 @@ import {
 	startTimer,
 	verifyYear,
 } from "@/lib/utils";
-import { InlineSelect } from "./inline-select";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "./ui/select";
 
 export function BatchSelector() {
 	const { month, setMonth } = useMonth();
@@ -42,29 +48,54 @@ export function BatchSelector() {
 	return (
 		<div className="border-b border-border grid text-xl grid-cols-[1fr_0.75fr_1fr] text-center items-center">
 			<p className="py-2 px-3 border-l border-border text-foreground">دفعة</p>
-			<div className="border-l border-border h-full">
-				<InlineSelect
+			<div className="border-l h-full">
+				<Select
 					value={month}
 					onValueChange={(v) => {
 						setMonth(v as (typeof BATCHES)[number]);
 						start(v as (typeof BATCHES)[number], year);
 					}}
-					placeholder="الشهر"
-					items={remainingBatches}
-					labels={remainingBatches.map((b) => formatNum(+b))}
-				/>
+				>
+					<SelectTrigger size="full">
+						<SelectValue className="text-center text-lg">
+							{(value: string | null) => (
+								<>{value ? formatNum(+value) : "الشهر"}</>
+							)}
+						</SelectValue>
+					</SelectTrigger>
+					<SelectContent>
+						{remainingBatches.map((item) => (
+							<SelectItem className="text-sm" key={item} value={item}>
+								{formatNum(+item)}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
 			</div>
 			<div className="h-full">
-				<InlineSelect
-					value={`${year}`}
-					onValueChange={(v: string) => {
+				<Select
+					value={year ? `${year}` : null}
+					onValueChange={(v) => {
+						if (!v) return;
 						setYear(+v);
 						start(month as (typeof BATCHES)[number], +v);
 					}}
-					placeholder="السنة"
-					items={years}
-					labels={years.map((y) => formatNum(+y))}
-				/>
+				>
+					<SelectTrigger size="full">
+						<SelectValue className="text-center text-lg">
+							{(value: string | null) => (
+								<>{value ? formatNum(+value) : "السنة"}</>
+							)}
+						</SelectValue>
+					</SelectTrigger>
+					<SelectContent>
+						{years.map((item) => (
+							<SelectItem className="text-sm" key={item} value={item}>
+								{formatNum(+item)}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
 			</div>
 		</div>
 	);

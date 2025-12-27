@@ -6,8 +6,8 @@ export function TrainingCheckbox() {
 	const { addTraining, setAddTraining } = useAddTraining();
 
 	return (
-		<div className="flex items-center h-full  hover:bg-input/50">
-			<Label className="px-3 py-2 w-full">
+		<div className="flex items-center h-full hover:bg-input/50">
+			<Label className="px-8 py-2 w-full text-sm">
 				<span>احتساب مدة التدريب</span>
 				<Checkbox
 					checked={addTraining}

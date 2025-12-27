@@ -39,63 +39,70 @@ export function Counter() {
 
 	return (
 		<Tabs
+			orientation="vertical"
 			value={clockMode}
 			onValueChange={(v: string) =>
 				setClockMode(v as (typeof CLOCK_MODES)[number])
 			}
 		>
-			<TabsList className="grid grid-cols-3 border-b border-border">
-				<TabsTrigger value="weeks">اسابيع</TabsTrigger>
-				<TabsTrigger value="days">ايام</TabsTrigger>
-				<TabsTrigger value="months">شهور</TabsTrigger>
-			</TabsList>
-			<TabsContent value="days">
-				<div
-					className="grid grid-cols-2 *:not-last:border-l *:not-last:border-border border-b"
-					dir="rtl"
-				>
-					<TimeSlot labels={DAYS} getValue={(clock) => clock?.totalDays} />
-					<TimeSlot labels={HOURS} getValue={(clock) => clock?.hours} />
-					{/* <TimeSlot
+			<div className="flex w-full">
+				<div className="h-full flex flex-col">
+					<TabsList className="flex-1 border-b border-border bg-background border-l w-16 *:not-last:border-b *:not-last:border-border">
+						<TabsTrigger value="weeks">اسابيع</TabsTrigger>
+						<TabsTrigger value="days">ايام</TabsTrigger>
+						<TabsTrigger value="months">شهور</TabsTrigger>
+					</TabsList>
+				</div>
+				<div className="flex-1">
+					<TabsContent value="days">
+						<div
+							className="grid grid-cols-2 *:not-last:border-l *:not-last:border-border border-b"
+							dir="rtl"
+						>
+							<TimeSlot labels={DAYS} getValue={(clock) => clock?.totalDays} />
+							<TimeSlot labels={HOURS} getValue={(clock) => clock?.hours} />
+							{/* <TimeSlot
                   labels={MINUTES}
                   getValue={(clock) => clock?.minutes}
                 /> */}
-					{/* <TimeSlot
+							{/* <TimeSlot
                   labels={SECONDS}
                   getValue={(clock) => clock?.seconds}
                 /> */}
-				</div>
-			</TabsContent>
-			<TabsContent value="months">
-				<div
-					className="grid grid-cols-3 *:not-last:border-l *:not-last:border-border border-b"
-					dir="rtl"
-				>
-					<TimeSlot
-						labels={MONTHS}
-						getValue={(clock) =>
-							clock ? clock.months + clock.years * 12 : undefined
-						}
-					/>
-					<TimeSlot labels={DAYS} getValue={(clock) => clock?.days} />
-					<TimeSlot labels={HOURS} getValue={(clock) => clock?.hours} />
-					{/* <TimeSlot
+						</div>
+					</TabsContent>
+					<TabsContent value="months">
+						<div
+							className="grid grid-cols-3 *:not-last:border-l *:not-last:border-border border-b"
+							dir="rtl"
+						>
+							<TimeSlot
+								labels={MONTHS}
+								getValue={(clock) =>
+									clock ? clock.months + clock.years * 12 : undefined
+								}
+							/>
+							<TimeSlot labels={DAYS} getValue={(clock) => clock?.days} />
+							<TimeSlot labels={HOURS} getValue={(clock) => clock?.hours} />
+							{/* <TimeSlot
                   labels={MINUTES}
                   getValue={(clock) => clock?.minutes}
-                /> */}
+									/> */}
+						</div>
+					</TabsContent>
+					<TabsContent value="weeks">
+						<div
+							className="grid grid-cols-3 *:not-last:border-l *:not-last:border-border border-b"
+							dir="rtl"
+						>
+							<TimeSlot labels={WEEKS} getValue={(clock) => clock?.weeks} />
+							<TimeSlot labels={DAYS} getValue={(clock) => clock?.weeksDays} />
+							<TimeSlot labels={HOURS} getValue={(clock) => clock?.hours} />
+							{/* <TimeSlot labels={MINUTES} value={clock?.minutes} /> */}
+						</div>
+					</TabsContent>
 				</div>
-			</TabsContent>
-			<TabsContent value="weeks">
-				<div
-					className="grid grid-cols-3 *:not-last:border-l *:not-last:border-border border-b"
-					dir="rtl"
-				>
-					<TimeSlot labels={WEEKS} getValue={(clock) => clock?.weeks} />
-					<TimeSlot labels={DAYS} getValue={(clock) => clock?.weeksDays} />
-					<TimeSlot labels={HOURS} getValue={(clock) => clock?.hours} />
-					{/* <TimeSlot labels={MINUTES} value={clock?.minutes} /> */}
-				</div>
-			</TabsContent>
+			</div>
 		</Tabs>
 	);
 }

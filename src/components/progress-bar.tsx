@@ -37,7 +37,7 @@ export function ProgressBar() {
 			<div className="flex gap-1 w-full relative">
 				{/* background */}
 				{Array.from({ length: 20 }, (_, i) => (
-					<div key={i} className="h-16 flex-1 rounded-none bg-secondary" />
+					<div key={i} className="h-16 flex-1 rounded-none bg-muted/50" />
 				))}
 				{/* foreground */}
 				<div
@@ -47,15 +47,12 @@ export function ProgressBar() {
 					}}
 				>
 					{Array.from({ length: 20 }, (_, i) => (
-						<div key={i} className="h-16 flex-1 rounded-none bg-foreground" />
+						<div key={i} className="h-16 flex-1 rounded-none bg-primary" />
 					))}
 				</div>
 			</div>
-			<div className="grid grid-cols-[1fr_2fr_1fr] items-center text-sm text-muted-foreground">
+			<div className="grid grid-cols-2 items-center text-sm text-muted-foreground">
 				<p className="self-start">{startDate.toLocaleDateString("ar-EG")}</p>
-				<div className="justify-self-center">
-					<TrainingCheckbox />
-				</div>
 
 				<p className="justify-self-end self-start">
 					{new Date(endDate).toLocaleDateString("ar-EG")}

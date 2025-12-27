@@ -8,7 +8,7 @@ export function Clock() {
 	return (
 		<div
 			className={cn(
-				"text-center grid grid-cols-3 items-center justify-center h-full",
+				"text-center grid grid-rows-2 items-center justify-center h-full divide-y",
 			)}
 		>
 			<div className="bg-background h-full flex items-center justify-center">
@@ -16,9 +16,9 @@ export function Clock() {
 					{clock ? formatNum(clock?.minutes) : "-"}
 				</p>
 			</div>
-			<p className="text-lg md:text-xl border-x h-full flex items-center justify-center">
+			{/* <p className="text-lg md:text-xl border-x h-full flex items-center justify-center">
 				:
-			</p>
+			</p> */}
 			<div className="bg-background h-full flex items-center justify-center">
 				<p className="text-lg md:text-2xl">
 					{clock ? formatNum(clock?.seconds) : "-"}
