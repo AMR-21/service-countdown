@@ -51,7 +51,7 @@ export function Counter() {
 			</TabsList>
 			<TabsContent value="days">
 				<div
-					className="grid grid-cols-2 [&>*]:not-last:border-l [&>*]:not-last:border-border border-b"
+					className="grid grid-cols-2 *:not-last:border-l *:not-last:border-border border-b"
 					dir="rtl"
 				>
 					<TimeSlot labels={DAYS} getValue={(clock) => clock?.totalDays} />
@@ -68,7 +68,7 @@ export function Counter() {
 			</TabsContent>
 			<TabsContent value="months">
 				<div
-					className="grid grid-cols-3 [&>*]:not-last:border-l [&>*]:not-last:border-border border-b"
+					className="grid grid-cols-3 *:not-last:border-l *:not-last:border-border border-b"
 					dir="rtl"
 				>
 					<TimeSlot
@@ -87,7 +87,7 @@ export function Counter() {
 			</TabsContent>
 			<TabsContent value="weeks">
 				<div
-					className="grid grid-cols-3 [&>*]:not-last:border-l [&>*]:not-last:border-border border-b"
+					className="grid grid-cols-3 *:not-last:border-l *:not-last:border-border border-b"
 					dir="rtl"
 				>
 					<TimeSlot labels={WEEKS} getValue={(clock) => clock?.weeks} />
@@ -111,7 +111,7 @@ function TimeSlot({
 	const value = getValue(clock);
 
 	return (
-		<div className="flex flex-col items-center pt-7 pb-6 gap-1.5 [&>:first-child]:text-5xl">
+		<div className="flex flex-col items-center pt-7 pb-6 gap-1.5 *:first:text-5xl">
 			{value !== undefined ? (
 				<>
 					<p>{formatNum(value)}</p>
