@@ -190,7 +190,6 @@ export function getTargetDate(
 export function verifyYear(year: number | string) {
 	const coercedYear = Number(year);
 	const today = new Date();
-	const day = today.getDate();
 	const curYear = today.getFullYear();
 	const curMonth = today.getMonth() + 1;
 
@@ -207,7 +206,6 @@ export function verifyYear(year: number | string) {
 
 export function getRemainingBatches(year: number) {
 	const today = new Date();
-	const day = today.getDate();
 	const curMonth = today.getMonth() + 1;
 	const curYear = today.getFullYear();
 	if (year === curYear) {
