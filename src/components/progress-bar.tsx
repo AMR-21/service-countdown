@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <> */
 import { useAddTraining } from "@/hooks/use-add-training";
 import { useDuration } from "@/hooks/use-duration";
 import { useMonth } from "@/hooks/use-month";
@@ -6,60 +7,60 @@ import { formatNum, getRecruitmentDuration, getTargetDate } from "@/lib/utils";
 import { TrainingCheckbox } from "./training-checkbox";
 
 export function ProgressBar() {
-  const { month } = useMonth();
-  const { year } = useYear();
-  const { duration } = useDuration();
-  const { addTraining } = useAddTraining();
+	const { month } = useMonth();
+	const { year } = useYear();
+	const { duration } = useDuration();
+	const { addTraining } = useAddTraining();
 
-  const endDate = getTargetDate(month, year);
+	const endDate = getTargetDate(month, year);
 
-  const { passed, total, startDate } = getRecruitmentDuration(
-    endDate,
-    +duration,
-    addTraining
-  );
+	const { passed, total, startDate } = getRecruitmentDuration(
+		endDate,
+		+duration,
+		addTraining,
+	);
 
-  const percentage = Math.round((passed / total) * 100);
+	const percentage = Math.round((passed / total) * 100);
 
-  return (
-    <div className="space-y-1 px-3 py-4">
-      <div className="flex items-baseline justify-between">
-        <div className="text-2xl">
-          {formatNum(passed >= 0 ? percentage : 0)} %
-        </div>
-        <div className="flex gap-1 items-baseline">
-          <span className="text-xl">{formatNum(passed >= 0 ? passed : 0)}</span>
-          <span className="text-muted-foreground">\ {formatNum(total)}</span>
-          <span className="text-xs text-muted-foreground">يوم</span>
-        </div>
-      </div>
-      <div className="flex gap-1 w-full relative">
-        {/* background */}
-        {Array.from({ length: 20 }, (_, i) => (
-          <div key={i} className="h-16 flex-1 rounded-none bg-secondary" />
-        ))}
-        {/* foreground */}
-        <div
-          className="absolute top-0 right-0 h-full w-full flex gap-1"
-          style={{
-            clipPath: `inset(0 0 0 ${100 - percentage}%)`,
-          }}
-        >
-          {Array.from({ length: 20 }, (_, i) => (
-            <div key={i} className="h-16 flex-1 rounded-none bg-foreground" />
-          ))}
-        </div>
-      </div>
-      <div className="grid grid-cols-[1fr_2fr_1fr] items-center text-sm text-muted-foreground">
-        <p className="self-start">{startDate.toLocaleDateString("ar-EG")}</p>
-        <div className="justify-self-center">
-          <TrainingCheckbox />
-        </div>
+	return (
+		<div className="space-y-1 px-3 py-4">
+			<div className="flex items-baseline justify-between">
+				<div className="text-2xl">
+					{formatNum(passed >= 0 ? percentage : 0)} %
+				</div>
+				<div className="flex gap-1 items-baseline">
+					<span className="text-xl">{formatNum(passed >= 0 ? passed : 0)}</span>
+					<span className="text-muted-foreground">\ {formatNum(total)}</span>
+					<span className="text-xs text-muted-foreground">يوم</span>
+				</div>
+			</div>
+			<div className="flex gap-1 w-full relative">
+				{/* background */}
+				{Array.from({ length: 20 }, (_, i) => (
+					<div key={i} className="h-16 flex-1 rounded-none bg-secondary" />
+				))}
+				{/* foreground */}
+				<div
+					className="absolute top-0 right-0 h-full w-full flex gap-1"
+					style={{
+						clipPath: `inset(0 0 0 ${100 - percentage}%)`,
+					}}
+				>
+					{Array.from({ length: 20 }, (_, i) => (
+						<div key={i} className="h-16 flex-1 rounded-none bg-foreground" />
+					))}
+				</div>
+			</div>
+			<div className="grid grid-cols-[1fr_2fr_1fr] items-center text-sm text-muted-foreground">
+				<p className="self-start">{startDate.toLocaleDateString("ar-EG")}</p>
+				<div className="justify-self-center">
+					<TrainingCheckbox />
+				</div>
 
-        <p className="justify-self-end self-start">
-          {new Date(endDate).toLocaleDateString("ar-EG")}
-        </p>
-      </div>
-    </div>
-  );
+				<p className="justify-self-end self-start">
+					{new Date(endDate).toLocaleDateString("ar-EG")}
+				</p>
+			</div>
+		</div>
+	);
 }

@@ -1,37 +1,36 @@
 import { parseAsInteger, useQueryState } from "nuqs";
 import { useEffect } from "react";
+import { verifyYear } from "@/lib/utils";
 
-const storageKey = "year"
+const storageKey = "year";
 
 export function useYear() {
+	const curYear = new Date().getFullYear();
 
-  const curYear = new Date().getFullYear()
+	const [year, setYear] = useQueryState(
+		storageKey,
+		parseAsInteger.withDefault(verifyYear(curYear) ? curYear : curYear + 1),
+	);
 
-  const [year, setYear] = useQueryState(
-    storageKey,
-    parseAsInteger.withDefault(curYear)
+	useEffect(() => {
+		if (!verifyYear(year)) {
+			setYear(null);
+			localStorage.removeItem(storageKey);
+			return;
+		}
 
-  )
-  useEffect(() => {
-    if (year && year < curYear) {
-      setYear(null);
-      localStorage.removeItem(storageKey);
-      return;
-    }
+		const storedYear = Number(localStorage.getItem(storageKey));
+		const isStoredValid = !Number.isNaN(storedYear) && verifyYear(storedYear);
 
-    const storedYear = Number(localStorage.getItem(storageKey));
-    const isStoredValid = !isNaN(storedYear) && storedYear >= curYear;
+		if (!year && isStoredValid) {
+			setYear(storedYear);
+			return;
+		}
 
-    if (!year && isStoredValid) {
-      setYear(storedYear);
-      return;
-    }
+		if (year && (!isStoredValid || year !== storedYear)) {
+			localStorage.setItem(storageKey, `${year}`);
+		}
+	}, [year, setYear]);
 
-    if (year && (!isStoredValid || year !== storedYear)) {
-      localStorage.setItem(storageKey, `${year}`);
-    }
-  }, [year, setYear, curYear]);
-
-
-  return { year, setYear }
+	return { year, setYear };
 }

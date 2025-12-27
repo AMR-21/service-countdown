@@ -2,10 +2,10 @@ export const CLOCK_MODES = ["days", "months", "weeks"] as const;
 export const BATCHES = ["2", "3", "5", "6", "8", "9", "11", "12"] as const;
 export const DURATIONS = ["1", "1.5", "2", "3"] as const;
 export const DURATIONS_LABELS = [
-  "سنة",
-  "سنة ونصف",
-  "سنتان",
-  "ثلاث سنوات",
+	"سنة",
+	"سنة ونصف",
+	"سنتان",
+	"ثلاث سنوات",
 ] as const;
 
 export const MONTHS = ["شهر", "شهران", "اشهر"] as const;
