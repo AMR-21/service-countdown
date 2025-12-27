@@ -2,6 +2,7 @@ import { isPast } from "date-fns";
 import { parseAsStringLiteral, useQueryState } from "nuqs";
 import { useEffect } from "react";
 import { BATCHES } from "@/lib/constants";
+import { getRemainingBatches } from "@/lib/utils";
 import { useYear } from "./use-year";
 
 const storageKey = "month";
@@ -13,13 +14,19 @@ export function useMonth() {
 	);
 
 	const { year } = useYear();
+
+	const remainingBatches = getRemainingBatches(year);
+
 	useEffect(() => {
 		const storedMonth = localStorage.getItem(storageKey);
-		const isStoredValid = BATCHES.includes(
-			storedMonth as (typeof BATCHES)[number],
-		);
+		const isStoredValid =
+			BATCHES.includes(storedMonth as (typeof BATCHES)[number]) &&
+			remainingBatches.includes(storedMonth as (typeof BATCHES)[number]);
 
-		if ((!month && !isStoredValid) || (month && isPast(`${month}-1-${year}`))) {
+		if (
+			(!month && !isStoredValid) ||
+			(month && isPast(`${month}-25-${year}`))
+		) {
 			setMonth(null);
 			localStorage.removeItem(storageKey);
 			return;
@@ -33,7 +40,7 @@ export function useMonth() {
 		if (month && (!isStoredValid || month !== storedMonth)) {
 			localStorage.setItem(storageKey, month);
 		}
-	}, [month, setMonth, year]);
+	}, [month, setMonth, year, remainingBatches]);
 
 	return { month, setMonth };
 }

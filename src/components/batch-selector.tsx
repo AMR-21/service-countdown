@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useMonth } from "@/hooks/use-month";
 import { useYear } from "@/hooks/use-year";
 import type { BATCHES } from "@/lib/constants";
@@ -45,6 +45,8 @@ export function BatchSelector() {
 	);
 
 	const remainingBatches = useMemo(() => getRemainingBatches(year), [year]);
+
+	console.log(remainingBatches, new Date());
 
 	return (
 		<div className="border-b border-border grid text-xl grid-cols-[0.5fr_1fr_1fr_1fr] text-center items-center">

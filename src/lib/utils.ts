@@ -40,6 +40,18 @@ export function formatNum(num: number) {
 
 export function startTimer(target: string) {
 	if (timerId) clearInterval(timerId);
+	// if (isPast(target))
+	// 	return store.set(clockAtom, {
+	// 		days: 0,
+	// 		hours: 0,
+	// 		minutes: 0,
+	// 		seconds: 0,
+	// 		months: 0,
+	// 		years: 0,
+	// 		weeks: 0,
+	// 		weeksDays: 0,
+	// 		totalDays: 0,
+	// 	} satisfies Clock);
 
 	// for instant effect
 	store.set(clockAtom, getClock(target));
@@ -50,8 +62,15 @@ export function startTimer(target: string) {
 		// Egypt Time (GMT+2)
 		const targetDate = new Date(`${target}T00:00:00+02:00`);
 		const diff = differenceInDays(targetDate, Date.now());
-		if (diff > 0 && diff <= 3 && !confettiTimerId) fireConfetti(30);
+		if (diff >= 0 && diff <= 3 && !confettiTimerId) fireConfetti(1);
 	}, 1000);
+}
+
+export function isPast(target: string) {
+	const now = Date.now();
+	// Egypt Time (GMT+2)
+	const targetDate = new Date(`${target}T00:00:00+02:00`);
+	return targetDate.getTime() < now;
 }
 
 export function getClock(target: string) {
@@ -60,6 +79,20 @@ export function getClock(target: string) {
 	const targetDate = new Date(`${target}T00:00:00+02:00`);
 	const totalDays = differenceInDays(targetDate, now);
 	const weeks = daysToWeeks(totalDays);
+
+	if (isPast(target)) {
+		return {
+			years: 0,
+			days: 0,
+			hours: 0,
+			minutes: 0,
+			seconds: 0,
+			months: 0,
+			weeks: 0,
+			weeksDays: 0,
+			totalDays: 0,
+		};
+	}
 
 	return {
 		years: 0,
@@ -151,12 +184,13 @@ export function getTargetDate(
 	year: number | null,
 ) {
 	if (!month || !year) return "";
-	return `${year}-${String(Number(+month - 1)).padStart(2, "0")}-25`;
+	return `${year}-${String(Number(+month - 1)).padStart(2, "0")}-26`;
 }
 
 export function verifyYear(year: number | string) {
 	const coercedYear = Number(year);
 	const today = new Date();
+	const day = today.getDate();
 	const curYear = today.getFullYear();
 	const curMonth = today.getMonth() + 1;
 
@@ -173,6 +207,7 @@ export function verifyYear(year: number | string) {
 
 export function getRemainingBatches(year: number) {
 	const today = new Date();
+	const day = today.getDate();
 	const curMonth = today.getMonth() + 1;
 	const curYear = today.getFullYear();
 	if (year === curYear) {
