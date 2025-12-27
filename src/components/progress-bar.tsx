@@ -4,7 +4,6 @@ import { useDuration } from "@/hooks/use-duration";
 import { useMonth } from "@/hooks/use-month";
 import { useYear } from "@/hooks/use-year";
 import { formatNum, getRecruitmentDuration, getTargetDate } from "@/lib/utils";
-import { TrainingCheckbox } from "./training-checkbox";
 
 export function ProgressBar() {
 	const { month } = useMonth();

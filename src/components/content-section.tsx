@@ -5,8 +5,6 @@ import { BgPattern } from "./bg-pattern";
 import { Clock } from "./clock";
 import { Counter } from "./counter";
 import DiagonalPattern from "./diagonal-pattern";
-import { Duration } from "./duration";
-import { Footer } from "./footer";
 import { ProgressBar } from "./progress-bar";
 import { TrainingCheckbox } from "./training-checkbox";
 

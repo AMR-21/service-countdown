@@ -47,14 +47,18 @@ export function startTimer(target: string) {
 	// the actual clock
 	timerId = setInterval(() => {
 		store.set(clockAtom, getClock(target));
-		const diff = differenceInDays(target, Date.now());
+		// Egypt Time (GMT+2)
+		const targetDate = new Date(`${target}T00:00:00+02:00`);
+		const diff = differenceInDays(targetDate, Date.now());
 		if (diff > 0 && diff <= 3 && !confettiTimerId) fireConfetti(30);
 	}, 1000);
 }
 
 export function getClock(target: string) {
 	const now = Date.now();
-	const totalDays = differenceInDays(target, now);
+	// Egypt Time (GMT+2)
+	const targetDate = new Date(`${target}T00:00:00+02:00`);
+	const totalDays = differenceInDays(targetDate, now);
 	const weeks = daysToWeeks(totalDays);
 
 	return {
@@ -65,7 +69,7 @@ export function getClock(target: string) {
 		seconds: 0,
 		months: 0,
 		...intervalToDuration({
-			end: new Date(target),
+			end: targetDate,
 			start: now,
 		}),
 		weeks,

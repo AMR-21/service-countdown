@@ -9,7 +9,6 @@ import {
 	startTimer,
 	verifyYear,
 } from "@/lib/utils";
-import DiagonalPattern from "./diagonal-pattern";
 import { Duration } from "./duration";
 import {
 	Select,

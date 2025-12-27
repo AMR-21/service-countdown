@@ -1,6 +1,5 @@
 import { useDuration } from "@/hooks/use-duration";
 import { DURATIONS, DURATIONS_LABELS } from "@/lib/constants";
-import { InlineSelect } from "./inline-select";
 import {
 	Select,
 	SelectContent,
