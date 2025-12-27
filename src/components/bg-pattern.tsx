@@ -9,7 +9,7 @@ export function BgPattern() {
 	const target = getTargetDate(month, year);
 	const diff = differenceInDays(target, Date.now());
 	return (
-		<div className="absolute inset-0 flex flex-wrap items-center justify-center gap-4 opacity-5 select-none pointer-events-none -rotate-12 scale-125">
+		<div className="absolute inset-0 flex flex-wrap items-center justify-center gap-4 dark:opacity-2 opacity-7 select-none pointer-events-none -rotate-12 scale-125">
 			{Array.from({ length: 100 }).map((_, i) => (
 				<span
 					// biome-ignore lint/suspicious/noArrayIndexKey: <>
